@@ -1,0 +1,88 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+@import "./button.css";
+@import "./input.css";
+
+:root {
+  --primary: #008d0f;
+  --secondary: #1f75f7;
+  --success: #00906d;
+  --danger: #bf4549;
+  --error: #bf4549;
+  --normal: #363636;
+  --current-theme: var(--primary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  user-select: none;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}
+
+.theme.volunteer {
+  --current-theme: var(--primary);
+}
+
+.theme.org {
+  --current-theme: var(--secondary);
+}
+
+.font-title-1 {
+  --font-weight: bold;
+  --font-size: 22pt;
+}
+
+.font-title-2 {
+  --font-weight: bold;
+  --font-size: 18;
+}
+
+.font-text {
+  --font-weight: normal;
+  --font-size: 12pt;
+}
+
+.font-label {
+  --font-weight: bold;
+  --font-size: 12pt;
+}
+
+.font-link {
+  --font-weight: bold;
+  --font-size: 12pt;
+}
+
+.font-mini-text {
+  --font-weight: normal;
+  --font-size: 10pt;
+}
+
+.font-label,
+.font-link,
+.font-mini-text,
+.font-text,
+.font-title-1,
+.font-title-2 {
+  color: var(--normal);
+  font-size: var(--font-size);
+  font-weight: var(--font-weight);
+}
+
+.font-link {
+  text-decoration: underline;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}

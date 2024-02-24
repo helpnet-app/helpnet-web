@@ -1,0 +1,88 @@
+button.button {
+  border-radius: 6px;
+  padding: 8px;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Button Theme */
+
+button.themed,
+button.themed-outline:hover {
+  background-color: var(--current-theme);
+  color: white;
+  border: 1px solid var(--current-theme);
+}
+
+button.themed-outline,
+button.themed:hover {
+  background-color: transparent;
+  color: var(--current-theme);
+  border: 1px solid var(--current-theme);
+}
+
+/* =========================== */
+/* Primary Button */
+
+button.primary,
+button.primary-outline:hover {
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+}
+
+button.primary-outline,
+button.primary:hover {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+/* =========================== */
+/* Secondary Button */
+
+button.secondary,
+button.secondary-outline:hover {
+  background-color: var(--secondary);
+  color: white;
+  border: 1px solid var(--secondary);
+}
+
+button.secondary-outline,
+button.secondary:hover {
+  background-color: transparent;
+  color: var(--secondary);
+  border: 1px solid var(--secondary);
+}
+/* =========================== */
+
+button.error {
+  background-color: var(--error);
+  color: white;
+  border: 1px solid var(--error);
+}
+
+button.error:hover {
+  background-color: transparent;
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+button.success {
+  background-color: var(--success);
+  color: white;
+  border: 1px solid var(--success);
+}
+
+button.success:hover {
+  background-color: transparent;
+  color: var(--success);
+  border: 1px solid var(--success);
+}
