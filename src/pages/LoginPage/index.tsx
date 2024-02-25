@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LogoImg from "../../assets/logo.svg";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
@@ -46,7 +46,9 @@ export const LoginPage: React.FC = () => {
           <button className="button font-text primary">ENTRAR</button>
           <label className="register font-text">
             Ainda não possui conta?
-            <a className="font-link">Cadastre-se</a>
+            <Link to="/register" className="font-link">
+              Cadastre-se
+            </Link>
           </label>
         </div>
       </form>

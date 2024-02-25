@@ -42,3 +42,11 @@
 .login-page .form .actions .register a {
   color: var(--primary);
 }
+
+/* RESPONSIVE QUERIES */
+
+@media (max-width: 600px) {
+  .login-page .form {
+    width: 90%;
+  }
+}
