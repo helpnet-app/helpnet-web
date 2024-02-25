@@ -8,42 +8,16 @@ import OrgImg from "../../assets/org.svg?react";
 import VolunteerImg from "../../assets/volunteer.svg?react";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
+import { Volunteer } from "../../entities/Volunteer";
+import { Org } from "../../entities/Org";
+import CreateOrg from "../../use_cases/Org/CreateUC";
+import CreateVolunteer from "../../use_cases/Volunteer/CreateUC";
+import OrgService from "../../services/OrgService";
+import VolunteerService from "../../services/VolunteerService";
 
-interface FormResponseVolunteer {
-  username: string;
-  password: string;
-  name: string;
-  birthday: string;
-  cep: string;
-  city: string;
-  confirmPassword: string;
-  country: string;
-  cpf: string;
-  district: string;
-  email: string;
-  houseNumber: string;
-  phone: string;
-  rg: string;
-  state: string;
-  whatsapp: string;
-}
+const createOrg = new CreateOrg(new OrgService());
+const createVolunteer = new CreateVolunteer(new VolunteerService())
 
-interface FormResponseOrg {
-  cep: string;
-  city: string;
-  cnpj: string;
-  confirmPassword: string;
-  country: string;
-  district: string;
-  email: string;
-  houseNumber: number;
-  name: string;
-  password: string;
-  phone: string;
-  state: string;
-  username: string;
-  whatsapp: string;
-}
 
 export const RegisterPage: React.FC = () => {
   const { currentTheme, setCurrentTheme } = useTheme();
@@ -52,16 +26,18 @@ export const RegisterPage: React.FC = () => {
   const { pushNotification } = useNotification();
   const navigate = useNavigate();
 
-  async function onSubmit(data: FormResponseVolunteer | FormResponseOrg) {
+  async function onSubmit(data: Volunteer | Org) {
     const isVolunteer = currentTheme === "volunteer";
 
-    let isCreated = true; // TODO: update variable with request status
+    let isCreated; // TODO: update variable with request status
     if (isVolunteer) {
-      const volunteerData = data as FormResponseVolunteer;
-      // TODO: create service to register a volunteer
+      const volunteerData = data as Volunteer;
+      isCreated = await createVolunteer.execute(volunteerData);
+      
     } else {
-      const orgData = data as FormResponseOrg;
-      // TODO: create service to register an org
+      const orgData = data as Org;
+      isCreated = await createOrg.execute(orgData);
+      
     }
 
     if (!isCreated)
