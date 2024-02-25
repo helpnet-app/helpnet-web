@@ -3,15 +3,19 @@ import LogoImg from "../../assets/logo.svg";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
 import "./styles.css";
+import Login from "../../use_cases/LoginUC";
+import AuthService from "../../services/AuthService";
+
+const loginUser = new Login(new AuthService());
 
 export const LoginPage: React.FC = () => {
   const { formRef, handleSubmit } = useForm(onSubmit);
   const navigation = useNavigate();
   const { pushNotification } = useNotification();
 
-  function onSubmit(data: { username: string; password: string }) {
-    // TODO: create a service to handle login submit
-    const isAuthenticated = false; // TODO: receive result of login
+  async function onSubmit(data: { username: string; password: string }) {
+
+    const isAuthenticated = await loginUser.execute(data.username, data.password)
 
     if (isAuthenticated) return navigation("/homepage");
     pushNotification(
