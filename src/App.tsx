@@ -7,7 +7,7 @@ import "./css/global-styles.css";
 export function App() {
   return (
     <NotificationProvider>
-      <RouterProvider router={routes} />;
+      <RouterProvider router={routes} />
     </NotificationProvider>
   );
 }

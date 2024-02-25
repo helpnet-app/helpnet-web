@@ -1,0 +1,162 @@
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.register-page.theme {
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.register-page .side-bar {
+  flex: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--current-theme);
+}
+
+.register-page .side-bar img {
+  width: 200px;
+  height: auto;
+}
+
+.register-page .main {
+  flex: 2;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 128px;
+  height: 100%;
+  gap: 20px;
+}
+
+.register-page .main > .title {
+  text-align: center;
+}
+
+/* =============== HEADER ================= */
+
+.register-page .main > .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.register-page .main > .header label.selected {
+  font-weight: bold;
+}
+
+/* =============== MAIN CONTENT ================= */
+
+.register-page .main > .steps {
+  flex: 1;
+  display: flex;
+}
+
+.register-page .main > .steps .step {
+  display: none;
+}
+
+.register-page .main > .steps .step.show {
+  flex: 1;
+  display: flex;
+}
+
+.register-page .main > .steps .step.one {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register-page .main > .steps .step.one .roles {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.register-page .main > .steps .step.one .roles .button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register-page .main > .steps .step.one .roles .button-group .role-button {
+  padding: 32px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid var(--current-theme);
+}
+
+.register-page
+  .main
+  > .steps
+  .step.one
+  .roles
+  .button-group.selected
+  .role-button {
+  background-color: var(--current-theme);
+}
+
+.register-page .main > .steps .step.one .roles .button-group .role-button svg {
+  color: var(--current-theme);
+  fill: var(--current-theme);
+}
+
+.register-page
+  .main
+  > .steps
+  .step.one
+  .roles
+  .button-group.selected
+  .role-button
+  svg {
+  fill: white;
+  color: white;
+}
+
+.register-page .main > .steps .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-page .main > .steps .form .inline {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.register-page .main > .steps .form .inline .s {
+  flex: 1;
+}
+
+.register-page .main > .steps .form .inline .m {
+  flex: 2;
+}
+
+.register-page .main > .steps .form .inline .l {
+  flex: 3;
+}
+
+/* =============== ACTIONS ================= */
+
+.register-page .main > .actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+}
+
+.register-page .main > .actions .button {
+  max-width: 200px;
+}
+
+.register-page .main > .actions .button:last-of-type {
+  margin-left: auto;
+}
