@@ -24,7 +24,8 @@ export default class OrgService {
                 district: data.district,
                 houseNumber: data.houseNumber,
                 state: data.state,
-                tra
+                tradeName: data.tradeName,
+                CNPJ: data.cnpj
                 
             })
         })
