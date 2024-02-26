@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import { Header } from "../../../../../components/Header";
 import { ProgramCard } from "../../../../../components/ProgramCard";
 import { Org } from "../../../../../entities/Org";
-import { Program } from "../../../../../entities/program";
+import { Program } from "../../../../../entities/Program";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import { ModeEnum } from "../../../../../entities/enum/mode_enum";
 import { ProgramStatusEnum } from "../../../../../entities/enum/program_status_enum";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
+import ProgramService from "../../../../../services/ProgramService";
+import { FetchAll } from "../../../../../use_cases/Programs/FetchAllUC";
 import "./styles.css";
+
+const fetchAllPrograms = new FetchAll(new ProgramService())
+
 
 export const ProgramList: React.FC = () => {
   const { handleChange } = useInputDelay(handleFilter);
@@ -22,21 +27,26 @@ export const ProgramList: React.FC = () => {
   useEffect(() => {
     async function fetch() {
       // TODO: create a service to fetch all programs
-      const newPrograms: Program[] = [
-        {
-          id: "01",
-          title: "Título de um programa",
-          mode: ModeEnum.ONLINE,
-          duration: 1,
-          description:
-            "Exemplo de descrição muuuuuuuuuuuuuuito longa demais demais demais demais demais demais demais demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  ",
-          type: "",
-          nSpots: 190,
-          tags: ["Ciência e Tecnologia", "Social"],
-          status: ProgramStatusEnum.ON_GOING,
-          createdAt: new Date(),
-        },
-      ];
+      fetchAllPrograms.execute().then((data) => {
+        setPrograms(data);
+        setPrograms2Show(data);
+      })
+
+      // const newPrograms: Program[] = [
+      //   {
+      //     id: "01",
+      //     title: "Título de um programa",
+      //     mode: ModeEnum.ONLINE,
+      //     duration: 1,
+      //     description:
+      //       "Exemplo de descrição muuuuuuuuuuuuuuito longa demais demais demais demais demais demais demais demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  ",
+      //     type: "",
+      //     nSpots: 190,
+      //     tags: ["Ciência e Tecnologia", "Social"],
+      //     status: ProgramStatusEnum.ON_GOING,
+      //     createdAt: new Date(),
+      //   },
+      // ];
 
       // TODO: create a service to get the authenticated user (role = 'org')
       const org: Org = {
@@ -58,8 +68,8 @@ export const ProgramList: React.FC = () => {
         _id: "001",
       };
 
-      setPrograms(newPrograms);
-      setPrograms2Show(newPrograms);
+      // setPrograms(newPrograms);
+      // setPrograms2Show(newPrograms);
       setAuthenticatedOrg(org);
     }
 

@@ -3,7 +3,7 @@ import DefaultImg from "../../assets/default.svg";
 import { Org } from "../../entities/Org";
 import { ModeEnum } from "../../entities/enum/mode_enum";
 import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
-import { Program } from "../../entities/program";
+import { Program } from "../../entities/Program";
 import { Tag } from "../Tag";
 import "./styles.css";
 

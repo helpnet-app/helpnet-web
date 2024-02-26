@@ -17,7 +17,7 @@ export const LoginPage: React.FC = () => {
 
     const isAuthenticated = await loginUser.execute(data.username, data.password)
 
-    if (isAuthenticated) return navigation("/homepage");
+    if (isAuthenticated) return navigation("/homepage/org");
     pushNotification(
       {
         message: "Usuário ou senha incorretos",
