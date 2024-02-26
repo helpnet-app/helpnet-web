@@ -1,0 +1,52 @@
+.tag {
+  --tag-bg: var(--current-theme);
+  border-radius: 50px;
+  padding: 8px 12px;
+  background-color: var(--tag-bg);
+  width: fit-content;
+}
+
+.tag span {
+  color: white;
+}
+
+.tag.todo {
+  --tag-bg: #d47b12;
+}
+
+.tag.finished {
+  --tag-bg: var(--success);
+}
+
+.tag.inprogress {
+  --tag-bg: #db5f05;
+}
+
+.tag.v1 {
+  --tag-bg: var(--secondary);
+}
+
+.tag.v2 {
+  --tag-bg: var(--primary);
+}
+
+.tag.v3 {
+  --tag-bg: #ff005c;
+}
+
+.tag.v4 {
+  --tag-bg: #5200ff;
+}
+
+.tag.v5 {
+  --tag-bg: #140061;
+}
+
+.tag.outline {
+  --tag-bg: white;
+  border: 1px solid var(--current-theme);
+}
+
+.tag.outline span {
+  color: var(--current-theme);
+}
