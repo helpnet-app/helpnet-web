@@ -43,17 +43,19 @@ export const ProgramList: React.FC = () => {
         cep: "TESTE",
         city: "TESTE",
         cnpj: "TESTE",
-        confirmPassword: "TESTE",
         country: "TESTE",
         district: "TESTE",
         email: "TESTE",
-        houseNumber: 1,
         name: "Org de Exemplo",
         password: "TESTE",
         phone: "TESTE",
         state: "TESTE",
         username: "TESTE",
         whatsapp: "TESTE",
+        tradeName: "TESTE",
+        houseNumber: "TESTE",
+        createdAt: new Date(),
+        _id: "001",
       };
 
       setPrograms(newPrograms);
