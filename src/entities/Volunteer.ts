@@ -1,5 +1,6 @@
+import { User } from "./User";
 
-export interface Volunteer {
+export interface Volunteer extends User{
   username: string;
   password: string;
   name: string;
