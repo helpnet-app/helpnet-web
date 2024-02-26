@@ -1,0 +1,12 @@
+:root {
+  --primary: #008d0f;
+  --primary-v2: #003605;
+  --secondary: #1f75f7;
+  --secondary-v2: #002864;
+  --success: #00906d;
+  --danger: #bf4549;
+  --error: #bf4549;
+  --normal: #363636;
+  --current-theme: var(--primary);
+  --current-theme-hover: var(--primary-v2);
+}

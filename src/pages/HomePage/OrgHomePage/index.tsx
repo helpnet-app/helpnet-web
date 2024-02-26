@@ -3,6 +3,7 @@ import { Sidebar } from "../../../components/Sidebar";
 import { SidebarItem } from "../../../components/Sidebar/item";
 import { useTabs } from "../../../hooks/useTabs";
 import "./styles.css";
+import { CreateProgram } from "./tabs/CreateProgram";
 import { ProgramList } from "./tabs/ProgramList";
 
 export const OrgHomePage: React.FC = () => {
@@ -31,7 +32,10 @@ export const OrgHomePage: React.FC = () => {
       </Sidebar>
 
       {/* =================== TABS =================== */}
-      <main className="main">{isTab(0) && <ProgramList />}</main>
+      <main className="main">
+        {isTab(0) && <ProgramList />}
+        {isTab(2) && <CreateProgram />}
+      </main>
     </div>
   );
 };

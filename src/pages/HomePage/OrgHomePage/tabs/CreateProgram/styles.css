@@ -1,0 +1,54 @@
+.create-program-tab {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.create-program-tab.loading {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-program-tab .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.create-program-tab .form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-program-tab .form .form-group.inline {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.create-program-tab .form .form-group.inline .s {
+  flex: 1;
+}
+
+.create-program-tab .form .form-group.inline .m {
+  flex: 2;
+}
+
+.create-program-tab .form .form-group.inline .l {
+  flex: 3;
+}
+
+.create-program-tab .form .radio-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.create-program-tab .tag {
+  cursor: pointer;
+}
