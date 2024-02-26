@@ -11,22 +11,7 @@ export default class OrgService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: data.name,
-                username: data.username,
-                email: data.email,
-                password: data.password,
-                phone: data.phone,
-                whatsapp: data.whatsapp,
-                cep: data.cep,
-                city: data.city,
-                country: data.country,
-                district: data.district,
-                houseNumber: data.houseNumber,
-                state: data.state,
-                tra
-                
-            })
+            body: JSON.stringify(data)
         })
         const responseJSON = await response.json();
         const responseStatus = response.status;
