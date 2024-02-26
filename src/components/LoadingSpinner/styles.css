@@ -1,0 +1,27 @@
+.loading-spinner {
+  --spinner-size: 40px;
+  --spinner-border-size: 6px;
+  border: var(--spinner-border-size) solid var(--current-theme);
+  border-radius: 50%;
+  width: var(--spinner-size);
+  height: var(--spinner-size);
+  position: relative;
+  animation: loop 1.5s cubic-bezier(0.14, 0.33, 0.38, 0.81) infinite;
+}
+
+.loading-spinner::after {
+  position: absolute;
+  content: " ";
+  width: 15px;
+  height: calc(var(--spinner-size) + var(--spinner-border-size));
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: white;
+}
+
+@keyframes loop {
+  to {
+    transform: rotate(360deg);
+  }
+}
