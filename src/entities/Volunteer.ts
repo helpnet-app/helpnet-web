@@ -1,4 +1,5 @@
 
+<<<<<<< Updated upstream
 export interface Volunteer {
   username: string;
   password: string;
@@ -17,3 +18,10 @@ export interface Volunteer {
   state: string;
   whatsapp: string;
 }
+=======
+export interface Volunteer extends User {
+  birthDate: Date;
+  CPF: string;
+  RG: string;
+}
+>>>>>>> Stashed changes

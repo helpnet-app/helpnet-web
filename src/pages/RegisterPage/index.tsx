@@ -14,10 +14,19 @@ import CreateOrg from "../../use_cases/Org/CreateUC";
 import CreateVolunteer from "../../use_cases/Volunteer/CreateUC";
 import OrgService from "../../services/OrgService";
 import VolunteerService from "../../services/VolunteerService";
+import { useState } from "react";
 
 const createOrg = new CreateOrg(new OrgService());
 const createVolunteer = new CreateVolunteer(new VolunteerService())
 
+
+interface FormResponseVolunteer extends Volunteer{
+  confirmPassword: string;
+}
+
+interface FormResponseOrg extends Org{
+  confirmPassword: string;
+}
 
 export const RegisterPage: React.FC = () => {
   const { currentTheme, setCurrentTheme } = useTheme();
@@ -26,17 +35,19 @@ export const RegisterPage: React.FC = () => {
   const { pushNotification } = useNotification();
   const navigate = useNavigate();
 
-  async function onSubmit(data: Volunteer | Org) {
+  async function onSubmit(data: FormResponseVolunteer | FormResponseOrg) {
     const isVolunteer = currentTheme === "volunteer";
+    const {confirmPassword, ...rest} = data;
+    
 
     let isCreated; // TODO: update variable with request status
     if (isVolunteer) {
-      const volunteerData = data as Volunteer;
-      isCreated = await createVolunteer.execute(volunteerData);
+      const volunteerData = rest as Volunteer;
+      isCreated = await createVolunteer.execute(volunteerData, confirmPassword);
       
     } else {
-      const orgData = data as Org;
-      isCreated = await createOrg.execute(orgData);
+      const orgData = rest as Org;
+      isCreated = await createOrg.execute(orgData, confirmPassword);
       
     }
 
@@ -252,7 +263,7 @@ export const RegisterPage: React.FC = () => {
                   </div>
 
                   <input
-                    name="birthday"
+                    name="birthDate"
                     type="date"
                     className="input"
                     placeholder="Data de Nascimento"
@@ -260,13 +271,13 @@ export const RegisterPage: React.FC = () => {
 
                   <div className="inline">
                     <input
-                      name="cpf"
+                      name="CPF"
                       type="text"
                       className="input"
                       placeholder="CPF"
                     />
                     <input
-                      name="rg"
+                      name="RG"
                       type="text"
                       className="input"
                       placeholder="RG"

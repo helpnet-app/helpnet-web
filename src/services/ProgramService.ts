@@ -1,14 +1,12 @@
-import { OrganizationToCreateDto } from "../dtos/organization/OrganizationToCreateDto";
-import { Org } from "../entities/Org"
+import { ProgramToCreateDto } from "../dtos/program/ProgramToCreateDto";
+import { Program } from "../entities/Program";
 
 
-export default class OrgService {
+export default class ProgramService {
 
-    async create(data: OrganizationToCreateDto): Promise<Org> {
-
-        console.log(data);
+    async create(data: ProgramToCreateDto, id_org: string): Promise<Program> {
         
-        const response = await fetch(`https://helpnet-api-1.onrender.com/organizations`, {
+        const response = await fetch(`https://helpnet-api-1.onrender.com/programs/${id_org}/create`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -22,10 +20,11 @@ export default class OrgService {
         return responseJSON;
     }
 
-    async findById(id_org: string): Promise<Org> {
+    async fetchAll(): Promise<Program[]> {
         const response = await fetch(
-            `https://helpnet-api-1.onrender.com/organizations/${id_org}`
+            `https://helpnet-api-1.onrender.com/programs/`
         );
+
         const responseJSON = await response.json();
         const responseStatus = response.status;
         if (responseStatus !== 200) throw new Error(responseJSON.message);

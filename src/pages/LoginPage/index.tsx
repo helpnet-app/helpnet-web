@@ -17,7 +17,22 @@ export const LoginPage: React.FC = () => {
 
     const isAuthenticated = await loginUser.execute(data.username, data.password)
 
+<<<<<<< Updated upstream
     if (isAuthenticated) return navigation("/homepage");
+=======
+    if (isAuthenticated) {
+      sessionStorage.setItem("login_token", isAuthenticated.access_token)
+
+      if (isAuthenticated.role == "organization") {
+        localStorage.setItem("id_org", isAuthenticated.id)
+        return navigation("/homepage/org");
+      } else if (isAuthenticated.role == "volunteer") {
+        localStorage.setItem("id_vol", isAuthenticated.id)
+        return navigation("/homepage/vol");
+      }
+      
+    }
+>>>>>>> Stashed changes
     pushNotification(
       {
         message: "Usuário ou senha incorretos",

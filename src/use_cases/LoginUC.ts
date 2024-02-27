@@ -1,5 +1,5 @@
 import UserService from "../services/AuthService";
-import { User } from "../entities/User";
+import { Auth } from "../entities/Auth";
 
 export default class Login {
 
@@ -9,12 +9,16 @@ export default class Login {
       this.userService = userService
    }
 
+<<<<<<< Updated upstream
    async execute(email: string, password: string): Promise<User> {
+=======
+   async execute(username: string, password: string): Promise<Auth> {
+>>>>>>> Stashed changes
 
       if (!this.isValidField(password)) throw new Error("Preencha o campo de senha.");
-      if (!this.isValidField(email)) throw new Error("Preencha o campo de email.");
+      if (!this.isValidField(username)) throw new Error("Preencha o campo de username.");
    
-      const loggedUser = await this.userService.login(email, password);
+      const loggedUser = await this.userService.login(username, password);
 
       return loggedUser;
    }
