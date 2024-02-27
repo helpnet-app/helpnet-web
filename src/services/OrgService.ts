@@ -6,8 +6,6 @@ export default class OrgService {
 
     async create(data: OrganizationToCreateDto): Promise<Org> {
 
-        console.log(data);
-        
         const response = await fetch(`https://helpnet-api-1.onrender.com/organizations`, {
             method: 'POST',
             headers: {

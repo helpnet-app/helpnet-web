@@ -289,7 +289,7 @@ export const RegisterPage: React.FC = () => {
               {currentTheme === "org" && (
                 <>
                   <input
-                    name="cnpj"
+                    name="CNPJ"
                     type="text"
                     className="input"
                     placeholder="CNPJ"

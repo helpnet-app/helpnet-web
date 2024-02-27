@@ -11,13 +11,20 @@ export default class CreateOrg {
    }
 
    async execute(data: OrganizationToCreateDto, confPassword: string): Promise<Org> {
+
+      const parsedData = {
+         ...data,
+         tradeName: data.name
+       };
+     
+
       if (!this.isValidField(data.password)) throw new Error("Preencha o campo de senha.");
       if (!this.isValidField(data.username)) throw new Error("Preencha o campo de nome.");
       // if(!this.isValidPassword(password)) throw new Error("A senha deve possuir entre 8 e 20 caracteres, contendo números e letras maiúscula e minusculas.")
       if (!this.isPasswordEqual(data.password, confPassword)) throw new Error("As senhas não coincidem");
     //   if (!this.isValidEmail(email)) throw new Error("Insira um email válido.");
 
-      const createdUser = await this.orgService.create(data);
+      const createdUser = await this.orgService.create(parsedData);
 
       return createdUser;
    }
