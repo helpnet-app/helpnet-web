@@ -86,3 +86,27 @@
   color: var(--success);
   border: 1px solid var(--success);
 }
+
+.button.normal {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  color: var(--normal);
+  border: 1px solid var(--normal);
+}
+
+.button.normal:hover {
+  background-color: var(--normal);
+  color: white;
+  border: 1px solid var(--normal);
+}
+
+.button.normal:hover label {
+  color: white;
+}
+
+button.button svg,
+button.button label,
+button.button span {
+  cursor: pointer;
+}
