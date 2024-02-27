@@ -21,6 +21,14 @@ import { useNotification } from "../../hooks/useNotification";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
+import { FetchAllApplicationsByProgram } from "../../use_cases/Programs/FetchAllApplicationsByProgramUC";
+import ProgramService from "../../services/ProgramService";
+import StartProgramUC from "../../use_cases/Programs/StartProgramUC";
+import FinishProgramUC from "../../use_cases/Programs/FinishProgramUC";
+
+const fetchAllApplicationsByProgram = new FetchAllApplicationsByProgram(new ProgramService())
+const startProgram = new StartProgramUC(new ProgramService())
+const finishProgram = new FinishProgramUC(new ProgramService())
 
 export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   const { pushNotification } = useNotification();
@@ -37,41 +45,11 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
 
   useEffect(() => {
     async function fetch() {
-      // TODO: fetch all candidates
-      const tempUsers: User[] = [
-        {
-          _id: "teste",
-          name: "teste",
-          username: "teste",
-          email: "teste",
-          password: "teste",
-          phone: "teste",
-          whatsapp: "teste",
-          cep: "teste",
-          city: "teste",
-          country: "teste",
-          district: "teste",
-          houseNumber: "teste",
-          state: "teste",
-          createdAt: new Date(),
-        },
-        {
-          _id: "teste2",
-          name: "teste",
-          username: "teste",
-          email: "teste",
-          password: "teste",
-          phone: "teste",
-          whatsapp: "teste",
-          cep: "teste",
-          city: "teste",
-          country: "teste",
-          district: "teste",
-          houseNumber: "teste",
-          state: "teste",
-          createdAt: new Date(),
-        },
-      ];
+      
+      fetchAllApplicationsByProgram.execute(program.id).then((data) => {
+        setUsers(data);
+        setUsers2Show(data);
+      })
 
       // TODO: fetch approved users
       const tempApprovedUsers: User[] = [
@@ -94,19 +72,17 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
       ];
 
       setApprovedUsers(tempApprovedUsers);
-      setUsers(tempUsers);
-      setUsers2Show(tempUsers);
+      
     }
 
     fetch();
   }, []);
 
-  function handleInitProgram() {
-    // TODO: create service to init a program
-    const wasUpdated = false;
-    // =========================================
+  async function handleInitProgram() {
+    
+    const startedProgram = await startProgram.execute(program.id);
 
-    if (wasUpdated) {
+    if (startedProgram) {
       pushNotification(
         {
           message: "Programa iniciado com sucesso.",
@@ -127,7 +103,7 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
     );
   }
 
-  function handleDeleteProgram() {
+  async function handleDeleteProgram() {
     // TODO: create service to delete a program
     const wasUpdated = false;
     // =========================================
@@ -153,12 +129,12 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
     );
   }
 
-  function handleFinishProgram() {
-    // TODO: create service to finish a program
-    const wasUpdated = false;
-    // =========================================
+  async function handleFinishProgram() {
 
-    if (wasUpdated) {
+    const startedProgram = await finishProgram.execute(program.id);
+
+
+    if (startedProgram) {
       pushNotification(
         {
           message: "Programa finalizado com sucesso.",
