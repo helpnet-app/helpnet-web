@@ -12,7 +12,6 @@ interface Props {
   close: () => void;
 }
 
-import DefaultImg from "../../assets/default.svg";
 import { Application } from "../../entities/Application";
 import { Org } from "../../entities/Org";
 import { User } from "../../entities/User";
@@ -20,20 +19,25 @@ import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
 import { useDialog } from "../../hooks/useDialog";
 import { useInputDelay } from "../../hooks/useInputDelay";
 import { useNotification } from "../../hooks/useNotification";
+import ProgramService from "../../services/ProgramService";
+import DeleteProgramUC from "../../use_cases/Programs/DeleteProgramUC";
+import { FetchAllApplicationsByProgram } from "../../use_cases/Programs/FetchAllApplicationsByProgramUC";
+import FinishProgramUC from "../../use_cases/Programs/FinishProgramUC";
+import StartProgramUC from "../../use_cases/Programs/StartProgramUC";
 import { AnalyzeApplyingDialog } from "../AnalyzeApplyingDialog";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
-import { FetchAllApplicationsByProgram } from "../../use_cases/Programs/FetchAllApplicationsByProgramUC";
-import ProgramService from "../../services/ProgramService";
-import StartProgramUC from "../../use_cases/Programs/StartProgramUC";
-import FinishProgramUC from "../../use_cases/Programs/FinishProgramUC";
-import DeleteProgramUC from "../../use_cases/Programs/DeleteProgramUC";
 
-const fetchAllApplicationsByProgram = new FetchAllApplicationsByProgram(new ProgramService())
-const startProgram = new StartProgramUC(new ProgramService())
-const finishProgram = new FinishProgramUC(new ProgramService())
-const deleteProgram = new DeleteProgramUC(new ProgramService())
+const fetchAllApplicationsByProgram = new FetchAllApplicationsByProgram(
+  new ProgramService()
+);
+const startProgram = new StartProgramUC(new ProgramService());
+const finishProgram = new FinishProgramUC(new ProgramService());
+const deleteProgram = new DeleteProgramUC(new ProgramService());
+
+import DefaultImg from "../../assets/default.svg";
+import { ApplicationStatusEnum } from "../../entities/enum/application_status_enum";
 
 export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -53,44 +57,21 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
 
   useEffect(() => {
     async function fetch() {
-      
-      fetchAllApplicationsByProgram.execute(program.id).then((data) => {
-        setUsers(data);
-        setUsers2Show(data);
-      })
-
-      // TODO: fetch approved users
-      const tempApprovedUsers: User[] = [
-        {
-          _id: "teste",
-          name: "teste",
-          username: "teste",
-          email: "teste",
-          password: "teste",
-          phone: "teste",
-          whatsapp: "teste",
-          cep: "teste",
-          city: "teste",
-          country: "teste",
-          district: "teste",
-          houseNumber: "teste",
-          state: "teste",
-          createdAt: new Date(),
-        },
-      ];
-
-      setApprovedUsers(tempApprovedUsers);
-      
+      const apps = await fetchAllApplicationsByProgram.execute(program._id);
+      const newUsers = apps.map((a) => a.volunteer!!);
+      setUsers(newUsers);
+      setUsers2Show(newUsers);
+      setApprovedUsers(
+        apps
+          .filter((a) => a.status === ApplicationStatusEnum.APPROVED)
+          .map((u) => u.volunteer!!)
+      );
     }
 
     fetch();
   }, []);
 
-  function handleNext() {}
-  function handleLast() {}
-
   async function handleInitProgram() {
-
     const startedProgram = await startProgram.execute(program._id);
 
     if (startedProgram) {
@@ -115,7 +96,6 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   }
 
   async function handleDeleteProgram() {
-
     const deletedProgram = await deleteProgram.execute(program._id);
 
     if (deletedProgram) {
@@ -140,9 +120,7 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   }
 
   async function handleFinishProgram() {
-
     const startedProgram = await finishProgram.execute(program.id);
-
 
     if (startedProgram) {
       pushNotification(
@@ -235,6 +213,8 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
       </li>
     );
   }
+
+  function handleApproveAll() {}
 
   return (
     <article className="program-dialog">
@@ -331,13 +311,10 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
           {program.status === ProgramStatusEnum.CREATED && (
             <>
               <button
-                className="button themed-outline font-label s select-users"
-                disabled={selectedUsers.length === 0}
+                onClick={handleApproveAll}
+                className="button success font-label s"
               >
-                ANALISAR SELECIONADOS
-              </button>
-              <button className="button themed-outline font-label s">
-                ANALISAR TODOS
+                APROVAR CANDIDATOS
               </button>
             </>
           )}

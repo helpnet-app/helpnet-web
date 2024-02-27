@@ -10,11 +10,11 @@ import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import ProgramService from "../../../../../services/ProgramService";
 import VolunteerService from "../../../../../services/VolunteerService";
-import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllProgramsByVolIdUC";
+import { FetchAllProgramsByVolId } from "../../../../../use_cases/Programs/FetchAllProgramsByVolIdUC";
 import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
 import "./styles.css";
 
-const fetchAllByVol = new FetchAllByVolId(new ProgramService());
+const fetchAllByVol = new FetchAllProgramsByVolId(new ProgramService());
 const findById = new FindVolById(new VolunteerService());
 
 export const AppliedPrograms: React.FC = () => {
