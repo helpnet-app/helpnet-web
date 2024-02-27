@@ -49,12 +49,13 @@ export const CreateProgram: React.FC = () => {
   }, []);
 
   async function onSubmit(data: FormResponse) {
-    const { ch, ...rest } = data;
+    const { ch, nSpot, ...rest } = data;
     const parsedData = {
       ...rest,
       mode: parseInt(data.mode) as ModeEnum,
       nSpots: parseInt(data.nSpot),
       duration: parseInt(data.ch),
+      type: data.mode,
       tags,
     };
     let createdProgram: Program | undefined = undefined;

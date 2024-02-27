@@ -8,16 +8,15 @@ import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import { ProgramDialog } from "../../../../../components/ProgramDialog";
 import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
-import ProgramService from "../../../../../services/ProgramService";
-import { FetchAll } from "../../../../../use_cases/Programs/FetchAllUC";
-import "./styles.css";
 import OrgService from "../../../../../services/OrgService";
+import ProgramService from "../../../../../services/ProgramService";
 import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
 import { FetchAllByOrgId } from "../../../../../use_cases/Programs/FetchAllByOrgIdUC";
+import "./styles.css";
 
 // const fetchAllPrograms = new FetchAll(new ProgramService());
-const fetchAllByOrgId= new FetchAllByOrgId(new ProgramService())
-const findById = new FindOrgById(new OrgService())
+const fetchAllByOrgId = new FetchAllByOrgId(new ProgramService());
+const findById = new FindOrgById(new OrgService());
 
 export const ProgramList: React.FC = () => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -36,17 +35,15 @@ export const ProgramList: React.FC = () => {
     async function fetch() {
       const id_org = localStorage.getItem("id_org");
 
-      if(id_org) {
-
+      if (id_org) {
         const org = await findById.execute(id_org);
-        if(org) setAuthenticatedOrg(org);
+        if (org) setAuthenticatedOrg(org);
 
         fetchAllByOrgId.execute(id_org).then((data) => {
           setPrograms(data);
           setPrograms2Show(data);
         });
       }
-    
     }
 
     fetch();
