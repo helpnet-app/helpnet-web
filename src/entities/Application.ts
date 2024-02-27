@@ -1,5 +1,6 @@
-import { Volunteer } from './Volunteer';
-import { ApplicationStatusEnum } from './enum/application_status_enum';
+import { Program } from "./Program";
+import { Volunteer } from "./Volunteer";
+import { ApplicationStatusEnum } from "./enum/application_status_enum";
 
 interface Schedule {
   days: string[];
@@ -13,15 +14,15 @@ export interface Questions {
 }
 
 export interface Application {
-  status: ApplicationStatusEnum;
-  volunteer: string;
-  program: string;
   appliedAt: Date;
   finishedAt: Date;
-  questions: Questions; 
+  questions: Questions;
+  volunteer?: Volunteer;
+  program?: Program;
+  status: ApplicationStatusEnum;
 }
 
 export interface VolunteerApplication {
-  application: Application,
-  volunteers: Volunteer[],
+  application: Application;
+  volunteers: Volunteer[];
 }

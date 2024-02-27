@@ -14,11 +14,10 @@ import { Org } from "../../entities/Org";
 import { Volunteer } from "../../entities/Volunteer";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
+import ProgramService from "../../services/ProgramService";
+import ApplyToProgramUC from "../../use_cases/Programs/ApplyToProgramUC";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
-import { AppliedPrograms } from "../../pages/HomePage/VolunteerHomePage/tabs/AppliedPrograms";
-import ApplyToProgramUC from "../../use_cases/Programs/ApplyToProgramUC";
-import ProgramService from "../../services/ProgramService";
 
 interface FormResponse {
   personalDescription: string;
@@ -27,7 +26,7 @@ interface FormResponse {
   freeTimes: string[] | string;
 }
 
-const applyToProgram = new ApplyToProgramUC(new ProgramService())
+const applyToProgram = new ApplyToProgramUC(new ProgramService());
 
 export const ApplyProgramDialog: React.FC<Props> = ({
   program,
@@ -39,7 +38,7 @@ export const ApplyProgramDialog: React.FC<Props> = ({
   const { formRef, handleSubmit } = useForm(handleApplying);
 
   async function handleApplying(data: FormResponse) {
-    const {freeTimes, freeWeekdays, ...rest} = data;
+    const { freeTimes, freeWeekdays, ...rest } = data;
     const parsedData = {
       ...rest,
       schedule: {
@@ -48,11 +47,15 @@ export const ApplyProgramDialog: React.FC<Props> = ({
             ? data.freeWeekdays
             : [data.freeWeekdays],
         period:
-          data.freeTimes instanceof Array ? data.freeTimes : [data.freeTimes]
-      }
+          data.freeTimes instanceof Array ? data.freeTimes : [data.freeTimes],
+      },
     };
 
-    const appliedProgram = await applyToProgram.execute(program.id, volunteer._id, parsedData)
+    const appliedProgram = await applyToProgram.execute(
+      program._id,
+      volunteer._id,
+      parsedData
+    );
 
     if (appliedProgram) {
       pushNotification(

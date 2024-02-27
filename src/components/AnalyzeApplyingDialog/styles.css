@@ -1,0 +1,77 @@
+article.program-dialog {
+  border: 2px solid var(--normal);
+  border-radius: 8px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.program-dialog .font-mini-text span {
+  font-weight: bold;
+}
+
+.program-dialog > .nav {
+  display: flex;
+  align-items: center;
+}
+
+.program-dialog > .nav > button {
+  background-color: transparent;
+  width: fit-content;
+  color: var(--normal);
+}
+
+.program-dialog > .nav > button:last-of-type {
+  margin-left: auto;
+}
+
+.program-dialog > .header {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-start;
+}
+@media (max-width: 1200px) {
+  .program-dialog > .header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.program-dialog > .main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.program-dialog > .main > .inline {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.program-dialog > .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-dialog > .actions .inline {
+  display: flex;
+  gap: 10px;
+}
+
+.program-dialog > .actions .inline .s {
+  flex: 1;
+}
+
+.program-dialog > .actions .inline .l {
+  flex: 3;
+}
+
+.program-dialog .font-text span {
+  font-weight: bold;
+}
