@@ -1,0 +1,67 @@
+.validate-certificate-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 60px;
+  height: 100vh;
+}
+
+.validate-certificate-page > .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+
+.validate-certificate-page .go-back {
+  background-color: transparent;
+  align-self: flex-start;
+  transform: rotate(180deg);
+  color: var(--normal);
+}
+
+.validate-certificate-page .logo {
+  width: 240px;
+  height: auto;
+}
+
+.validate-certificate-page .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.validate-certificate-page .form .main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.validate-certificate-page .form .actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.validate-certificate-page .form .actions .register {
+  display: flex;
+  gap: 2px;
+  color: var(--primary);
+}
+
+.validate-certificate-page .form .actions .register a {
+  color: var(--primary);
+}
+
+/* RESPONSIVE QUERIES */
+
+@media (max-width: 600px) {
+  .validate-certificate-page .form {
+    width: 90%;
+  }
+}
