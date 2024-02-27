@@ -13,11 +13,7 @@ export default class VolunteerService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-<<<<<<< Updated upstream
-            body: JSON.stringify({data})
-=======
             body: JSON.stringify(data)
->>>>>>> Stashed changes
         })
         const responseJSON = await response.json();
         console.log(responseJSON.status);

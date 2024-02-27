@@ -1,0 +1,47 @@
+.program-list-tab {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.program-list-tab.loading {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.program-list-tab .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-list-tab .actions .button {
+  width: fit-content;
+  margin-left: auto;
+}
+
+.program-list-tab .programs {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.program-list-tab .programs .inner {
+  display: flex;
+  width: 100%;
+}
+
+.program-list-tab .programs .inner.loading {
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+}

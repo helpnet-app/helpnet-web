@@ -8,7 +8,6 @@ export interface ProgramFile {
 
 export interface Program {
   id: string;
-  organizationId: string;
   title: string;
   mode: ModeEnum;
   duration: number;

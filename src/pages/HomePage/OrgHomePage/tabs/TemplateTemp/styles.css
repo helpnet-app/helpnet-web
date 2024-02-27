@@ -1,0 +1,14 @@
+.create-program-tab {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.create-program-tab.loading {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}

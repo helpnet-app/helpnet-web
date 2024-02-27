@@ -17,9 +17,6 @@ export const LoginPage: React.FC = () => {
 
     const isAuthenticated = await loginUser.execute(data.username, data.password)
 
-<<<<<<< Updated upstream
-    if (isAuthenticated) return navigation("/homepage");
-=======
     if (isAuthenticated) {
       sessionStorage.setItem("login_token", isAuthenticated.access_token)
 
@@ -32,7 +29,7 @@ export const LoginPage: React.FC = () => {
       }
       
     }
->>>>>>> Stashed changes
+
     pushNotification(
       {
         message: "Usuário ou senha incorretos",
