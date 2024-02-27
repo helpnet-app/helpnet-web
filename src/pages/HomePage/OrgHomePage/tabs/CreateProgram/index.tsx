@@ -4,28 +4,27 @@ import { Org } from "../../../../../entities/Org";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import { Tag } from "../../../../../components/Tag";
+import { Program } from "../../../../../entities/Program";
 import { ModeEnum } from "../../../../../entities/enum/mode_enum";
 import { useForm } from "../../../../../hooks/useForm";
 import { useNotification } from "../../../../../hooks/useNotification";
-import CreateProgramUC from "../../../../../use_cases/Programs/CreateUC";
-import ProgramService from "../../../../../services/ProgramService";
-import "./styles.css";
-import { PiArrowSquareRight } from "react-icons/pi";
-import { Program } from "../../../../../entities/Program";
-import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
 import OrgService from "../../../../../services/OrgService";
+import ProgramService from "../../../../../services/ProgramService";
+import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
+import CreateProgramUC from "../../../../../use_cases/Programs/CreateUC";
+import "./styles.css";
 
 interface FormResponse {
-  title: string; 
+  title: string;
   mode: "1" | "2" | "3";
   ch: string;
   description: string;
-  file: File;
+  // file: File;
   nSpot: string;
 }
 
-const createProgram = new CreateProgramUC(new ProgramService())
-const findById = new FindOrgById(new OrgService())
+const createProgram = new CreateProgramUC(new ProgramService());
+const findById = new FindOrgById(new OrgService());
 
 export const CreateProgram: React.FC = () => {
   const { formRef, handleSubmit } = useForm(onSubmit);
@@ -41,27 +40,30 @@ export const CreateProgram: React.FC = () => {
   useEffect(() => {
     async function fetch() {
       const id_org = localStorage.getItem("id_org");
-      if(id_org) {
+      if (id_org) {
         const org = await findById.execute(id_org);
-        if(org) setAuthenticatedOrg(org);
+        if (org) setAuthenticatedOrg(org);
       }
     }
     fetch();
   }, []);
 
   async function onSubmit(data: FormResponse) {
-    const {file, ...rest} = data;
+    const { ch, ...rest } = data;
     const parsedData = {
       ...rest,
       mode: parseInt(data.mode) as ModeEnum,
       nSpots: parseInt(data.nSpot),
       duration: parseInt(data.ch),
-      tags
+      tags,
     };
-    let createdProgram: Program|undefined = undefined;
+    let createdProgram: Program | undefined = undefined;
 
-    if(authenticatedOrg){
-      createdProgram = await createProgram.execute(parsedData, authenticatedOrg._id)
+    if (authenticatedOrg) {
+      createdProgram = await createProgram.execute(
+        parsedData,
+        authenticatedOrg._id
+      );
     }
 
     if (createdProgram) {
@@ -215,7 +217,7 @@ export const CreateProgram: React.FC = () => {
           <ul className="tags">{tags.map(renderTag)}</ul>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label className="font-label">Anexos</label>
           <input
             name="file"
@@ -223,7 +225,7 @@ export const CreateProgram: React.FC = () => {
             className="input"
             accept=".pdf,.docx"
           />
-        </div>
+        </div> */}
 
         <button onClick={handleSubmit} className="button themed font-label">
           ENVIAR
