@@ -12,6 +12,37 @@
   height: auto;
 }
 
+.login-page .validate {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  padding: 16px;
+  border-radius: 4px;
+  background-color: transparent;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+}
+
+.login-page .validate:hover {
+  background-color: var(--primary);
+}
+
+.login-page .validate svg,
+.login-page .validate label {
+  fill: var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.login-page .validate:hover svg,
+.login-page .validate:hover label {
+  fill: white;
+  color: white;
+}
+
 .login-page .form {
   width: 50%;
   display: flex;
