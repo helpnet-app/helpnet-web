@@ -31,4 +31,15 @@ export default class ProgramService {
         return responseJSON;
     }
 
+    async fetchAllByOrgId(id_org: string): Promise<Program[]> {
+        const response = await fetch(
+            `https://helpnet-api-1.onrender.com/programs/organization/${id_org}`
+        );
+
+        const responseJSON = await response.json();
+        const responseStatus = response.status;
+        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        return responseJSON;
+    }
+
 }

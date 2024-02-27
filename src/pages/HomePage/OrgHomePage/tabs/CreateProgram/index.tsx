@@ -4,7 +4,7 @@ import { Org } from "../../../../../entities/Org";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import { Tag } from "../../../../../components/Tag";
-import { ModeEnum } from "../../../../entities/enum/mode_enum";
+import { ModeEnum } from "../../../../../entities/enum/mode_enum";
 import { useForm } from "../../../../../hooks/useForm";
 import { useNotification } from "../../../../../hooks/useNotification";
 import CreateProgramUC from "../../../../../use_cases/Programs/CreateUC";
