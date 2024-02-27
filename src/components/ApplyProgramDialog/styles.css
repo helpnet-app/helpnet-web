@@ -1,0 +1,146 @@
+article.program-dialog {
+  border: 2px solid var(--normal);
+  border-radius: 8px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.program-dialog .font-mini-text span {
+  font-weight: bold;
+}
+
+.program-dialog > .nav {
+  display: flex;
+  align-items: center;
+}
+
+.program-dialog > .nav > button {
+  background-color: transparent;
+  width: fit-content;
+  color: var(--normal);
+}
+
+.program-dialog > .nav > button:last-of-type {
+  margin-left: auto;
+}
+
+.program-dialog > .header {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  align-items: flex-start;
+}
+@media (max-width: 1200px) {
+  .program-dialog > .header {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.program-dialog > .header .img {
+  flex: 1;
+  height: auto;
+}
+
+@media (max-width: 1200px) {
+  .program-dialog > .header .img {
+    width: auto;
+    min-height: 200px;
+  }
+}
+
+.program-dialog > .header .info {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: auto;
+  display: flex;
+}
+
+.program-dialog > .header .info .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.program-dialog > .main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.program-dialog > .main > .inline {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.program-dialog > .main .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.program-dialog > .main .form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-dialog > .main .form .form-group .inline {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: start;
+}
+
+.program-dialog > .main .form .form-group .checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.program-dialog > .main .form .form-group .checkbox-group input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.program-dialog > .main .form .form-group .inline .left {
+  flex: 1;
+}
+
+.program-dialog > .main .form .form-group .inline .right {
+  flex: 1;
+}
+
+.program-dialog > .main .form .form-group .inline .left,
+.program-dialog > .main .form .form-group .inline .right {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-dialog > .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.program-dialog > .actions .inline {
+  display: flex;
+  gap: 10px;
+}
+
+.program-dialog > .actions .inline .s {
+  flex: 1;
+}
