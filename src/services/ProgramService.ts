@@ -42,4 +42,15 @@ export default class ProgramService {
         return responseJSON;
     }
 
+    async fetchAllByVolId(id_vol: string): Promise<Program[]> {
+        const response = await fetch(
+            `https://helpnet-api-1.onrender.com/programs/applied/${id_vol}`
+        );
+
+        const responseJSON = await response.json();
+        const responseStatus = response.status;
+        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        return responseJSON;
+    }
+
 }
