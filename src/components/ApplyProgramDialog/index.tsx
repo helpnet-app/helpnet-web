@@ -5,11 +5,13 @@ import "./styles.css";
 interface Props {
   org: Org;
   program: Program;
+  volunteer: Volunteer;
   close: () => void;
 }
 
 import DefaultImg from "../../assets/default.svg";
 import { Org } from "../../entities/Org";
+import { Volunteer } from "../../entities/Volunteer";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
 import { MODE_TEXT } from "../ProgramCard/strings";
@@ -25,6 +27,7 @@ interface FormResponse {
 export const ApplyProgramDialog: React.FC<Props> = ({
   program,
   org,
+  volunteer,
   close,
 }) => {
   const { pushNotification } = useNotification();
