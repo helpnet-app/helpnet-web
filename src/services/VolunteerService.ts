@@ -1,9 +1,11 @@
+import { VolunteerToCreateDto } from "../dtos/volunteer/VolunteerToCreateDto";
 import { Volunteer } from "../entities/Volunteer";
 
 
 export default class VolunteerService {
 
-    async create(data: Volunteer): Promise<Volunteer> {
+    async create(data: VolunteerToCreateDto): Promise<Volunteer> {
+        console.log(data);
         
         const response = await fetch(`https://helpnet-api-1.onrender.com/volunteers`, {
             method: 'POST',
@@ -11,24 +13,19 @@ export default class VolunteerService {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                name: data.name,
-                username: data.username,
-                email: data.email,
-                password: data.password,
-                phone: data.phone,
-                whatsapp: data.whatsapp,
-                cep: data.cep,
-                city: data.city,
-                country: data.country,
-                district: data.district,
-                houseNumber: data.houseNumber,
-                state: data.state,
-                birthDate: data.birthday,
-                CPF: data.cpf,
-                RG: data.rg
-            })
+            body: JSON.stringify(data)
         })
+        const responseJSON = await response.json();
+        console.log(responseJSON.status);
+        const responseStatus = response.status;
+        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        return responseJSON;
+    }
+
+    async findById(id_vol: string): Promise<Volunteer> {
+        const response = await fetch(
+            `https://helpnet-api-1.onrender.com/volunteers/${id_vol}`
+        );
         const responseJSON = await response.json();
         const responseStatus = response.status;
         if (responseStatus !== 200) throw new Error(responseJSON.message);

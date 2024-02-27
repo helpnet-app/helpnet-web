@@ -1,3 +1,4 @@
+import { VolunteerToCreateDto } from "../../dtos/volunteer/VolunteerToCreateDto";
 import { Volunteer } from "../../entities/Volunteer";
 import VolunteerService from "../../services/VolunteerService";
 
@@ -9,11 +10,11 @@ export default class CreateVolunteer {
       this.volunteerService = volunteerService
    }
 
-   async execute(data: Volunteer): Promise<Volunteer> {
+   async execute(data: VolunteerToCreateDto, confPassword: string): Promise<Volunteer> {
       if (!this.isValidField(data.password)) throw new Error("Preencha o campo de senha.");
       if (!this.isValidField(data.name)) throw new Error("Preencha o campo de nome.");
     //   if(!this.isValidPassword(password)) throw new Error("A senha deve possuir entre 8 e 20 caracteres, contendo números e letras maiúscula e minusculas.")
-    //   if (!this.isPasswordEqual(password, confPassword)) throw new Error("As senhas não coincidem");
+      if (!this.isPasswordEqual(data.password, confPassword)) throw new Error("As senhas não coincidem");
     //   if (!this.isValidEmail(email)) throw new Error("Insira um email válido.");
 
       const createdUser = await this.volunteerService.create(data);
@@ -25,9 +26,9 @@ export default class CreateVolunteer {
       return field !== ""
    }
 
-   // private isPasswordEqual(password: string, confPassword: string) {
-   //    return password === confPassword
-   //  }
+   private isPasswordEqual(password: string, confPassword: string) {
+      return password === confPassword
+    }
 
    // private isValidPassword(password: string) {
    //    const passwordValidation = /^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/

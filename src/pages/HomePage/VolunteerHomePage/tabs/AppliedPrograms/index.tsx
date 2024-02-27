@@ -11,6 +11,13 @@ import { ProgramStatusEnum } from "../../../../../entities/enum/program_status_e
 import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import "./styles.css";
+import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllByVolIdUC";
+import ProgramService from "../../../../../services/ProgramService";
+import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
+import VolunteerService from "../../../../../services/VolunteerService";
+
+const fetchAllByVol = new FetchAllByVolId(new ProgramService())
+const findById = new FindVolById(new VolunteerService())
 
 export const AppliedPrograms: React.FC = () => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -26,70 +33,25 @@ export const AppliedPrograms: React.FC = () => {
   const [authenticatedVolunteer, setAuthenticatedVolunteer] =
     useState<Volunteer>();
 
-  useEffect(() => {
-    async function fetch() {
-      // TODO: create a service to fetch applied programs of a volunteer
-      const newPrograms: Program[] = [
-        {
-          id: "",
-          title: "Um Programa Qualquer",
-          mode: ModeEnum.ONLINE,
-          duration: 1,
-          description: "Descriçãaaaao.",
-          type: "",
-          nSpots: 1,
-          tags: ["Ciência"],
-          status: ProgramStatusEnum.CREATED,
-          createdAt: new Date(),
-          organization: {
-            _id: "TESTE",
-            name: "TESTE",
-            username: "TESTE",
-            email: "TESTE",
-            password: "TESTE",
-            phone: "TESTE",
-            whatsapp: "TESTE",
-            cep: "TESTE",
-            city: "TESTE",
-            country: "TESTE",
-            district: "TESTE",
-            houseNumber: "TESTE",
-            state: "TESTE",
-            createdAt: new Date(),
-            cnpj: "TESTE",
-            tradeName: "TESTE",
-          },
-        },
-      ];
-
-      // TODO: create a service to get the authenticated user (role = 'volunteer')
-      const volunteer: Volunteer = {
-        cep: "TESTE",
-        city: "TESTE",
-        country: "TESTE",
-        district: "TESTE",
-        email: "TESTE",
-        name: "Org de Exemplo",
-        password: "TESTE",
-        phone: "TESTE",
-        state: "TESTE",
-        username: "TESTE",
-        whatsapp: "TESTE",
-        houseNumber: "TESTE",
-        createdAt: new Date(),
-        _id: "001",
-        birthday: "12-01-2003",
-        confirmPassword: "000000",
-        cpf: "000.000.000-00",
-        rg: "000000-0",
-      };
-      setAuthenticatedVolunteer(volunteer);
-      setPrograms(newPrograms);
-      setPrograms2Show(newPrograms);
-    }
-
-    fetch();
-  }, []);
+    useEffect(() => {
+      async function fetch() {
+        const id_vol = localStorage.getItem("id_vol");
+  
+        if(id_vol) {
+  
+          const org = await findById.execute(id_vol);
+          if(org) setAuthenticatedVolunteer(org);
+  
+          fetchAllByVol.execute(id_vol).then((data) => {
+            setPrograms(data);
+            setPrograms2Show(data);
+          });
+        }
+      
+      }
+  
+      fetch();
+    }, []);
 
   function handleFilter(value: string) {
     if (value === "") return setPrograms2Show(programs);
