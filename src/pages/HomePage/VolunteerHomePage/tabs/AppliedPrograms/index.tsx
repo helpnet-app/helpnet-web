@@ -10,7 +10,7 @@ import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import ProgramService from "../../../../../services/ProgramService";
 import VolunteerService from "../../../../../services/VolunteerService";
-import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllByVolIdUC";
+import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllProgramsByVolIdUC";
 import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
 import "./styles.css";
 

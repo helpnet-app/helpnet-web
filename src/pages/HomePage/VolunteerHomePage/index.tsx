@@ -11,8 +11,8 @@ export const VolunteerHomePage: React.FC = () => {
   const { skipTo, isTab } = useTabs(0);
 
   function handleLogout() {
-    // TODO: create service to logout
-    // ============================
+    localStorage.removeItem("id_org")
+    sessionStorage.removeItem("login_token")
     navigate("/");
   }
 

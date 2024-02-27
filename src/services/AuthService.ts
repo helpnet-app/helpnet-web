@@ -17,7 +17,7 @@ export default class AuthService {
         })
         const responseJSON = await response.json();
         const responseStatus = response.status;
-        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        if (responseStatus !== 201) throw new Error(responseJSON.message);
         return responseJSON;
     }
 
