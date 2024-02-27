@@ -4,6 +4,7 @@ import { ProgramCard } from "../../../../../components/ProgramCard";
 import { Program } from "../../../../../entities/Program";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
+import { ProgramDialogVolunteer } from "../../../../../components/ProgramDialogVolunteer";
 import { Volunteer } from "../../../../../entities/Volunteer";
 import { ModeEnum } from "../../../../../entities/enum/mode_enum";
 import { ProgramStatusEnum } from "../../../../../entities/enum/program_status_enum";
@@ -26,7 +27,7 @@ export const AppliedPrograms: React.FC = () => {
   const [programs2Show, setPrograms2Show] = useState<Program[]>();
 
   // Selected programs
-  const [selectedPrograms, setSelectedPrograms] = useState<Program>();
+  const [selectedProgram, setSelectedPrograms] = useState<Program>();
 
   // Authenticated Org
   const [authenticatedVolunteer, setAuthenticatedVolunteer] =
@@ -134,9 +135,14 @@ export const AppliedPrograms: React.FC = () => {
       </ul>
 
       <dialog ref={dialogRef} className="dialog">
-        {/* {selectedPrograms && (
-          
-        )} */}
+        {selectedProgram && selectedProgram.organization && (
+          <ProgramDialogVolunteer
+            close={closeDialog}
+            org={selectedProgram.organization}
+            program={selectedProgram}
+            volunteer={authenticatedVolunteer}
+          />
+        )}
       </dialog>
     </div>
   );

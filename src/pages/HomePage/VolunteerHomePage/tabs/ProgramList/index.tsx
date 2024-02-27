@@ -139,6 +139,7 @@ export const ProgramList: React.FC = () => {
             close={closeDialog}
             org={selectedProgram.organization}
             program={selectedProgram}
+            volunteer={authenticatedVolunteer}
           />
         )}
       </dialog>
