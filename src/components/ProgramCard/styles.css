@@ -4,9 +4,9 @@
   width: 360px;
   max-height: 700px;
   min-height: 300px;
-  box-shadow: -2px 2px 4px 1px #00000033;
+  border: 1px solid #00000022;
   border-radius: 8px;
-  padding-bottom: 16px;
+  padding-bottom: 40px;
   gap: 10px;
   position: relative;
   transition: scale 0.5s;

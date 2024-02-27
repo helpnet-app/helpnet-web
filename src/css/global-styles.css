@@ -4,6 +4,7 @@
 @import "./button.css";
 @import "./input.css";
 @import "./textarea.css";
+@import "./dialog.css";
 
 * {
   margin: 0;
@@ -17,44 +18,34 @@
   font-variation-settings: "slnt" 0;
 }
 
-.theme.volunteer {
-  --current-theme: var(--primary);
-  --current-theme-hover: var(--primary-v2);
-}
-
-.theme.org {
-  --current-theme: var(--secondary);
-  --current-theme-hover: var(--secondary-v2);
-}
-
 .font-title {
-  --font-weight: bold;
-  --font-size: 22pt;
+  font-weight: bold;
+  font-size: 24pt;
 }
 
 .font-title-2 {
-  --font-weight: bold;
-  --font-size: 18;
+  font-weight: bold;
+  font-size: 20;
 }
 
 .font-text {
-  --font-weight: normal;
-  --font-size: 12pt;
+  font-weight: normal;
+  font-size: 12pt;
 }
 
 .font-label {
-  --font-weight: bold;
-  --font-size: 12pt;
+  font-weight: bold;
+  font-size: 12pt;
 }
 
 .font-link {
-  --font-weight: bold;
-  --font-size: 12pt;
+  font-weight: bold;
+  font-size: 12pt;
 }
 
 .font-mini-text {
-  --font-weight: normal;
-  --font-size: 10pt;
+  font-weight: normal;
+  font-size: 10pt;
 }
 
 .font-label,
@@ -64,8 +55,6 @@
 .font-title,
 .font-title-2 {
   color: var(--normal);
-  font-size: var(--font-size);
-  font-weight: var(--font-weight);
 }
 
 .font-link {
