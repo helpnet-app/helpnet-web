@@ -19,6 +19,10 @@ import { Volunteer } from "../../entities/Volunteer";
 import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
+import GenerateUC from "../../use_cases/Certificate/GenerateUC";
+import CertificateService from "../../services/CertificateService";
+
+const generateCertificate = new GenerateUC(new CertificateService())
 
 export const ProgramDialogVolunteer: React.FC<Props> = ({
   program,
@@ -26,8 +30,8 @@ export const ProgramDialogVolunteer: React.FC<Props> = ({
   volunteer,
   close,
 }) => {
-  function handleDownloadCertificate() {
-    // TODO: create a service to download the certificate
+  async function handleDownloadCertificate() {
+    const generatedCertificate = await generateCertificate.execute(program._id, volunteer._id)
   }
 
   // ================= RENDERING ==================
