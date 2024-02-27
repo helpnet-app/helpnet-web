@@ -9,7 +9,7 @@ export default class VerifyUC {
       this.certificateService = certificateService
    }
 
-   async execute(verificationRequest: VerificationRequest): Promise<Certificate> {
+   async execute(verificationRequest: VerificationRequest): Promise<Boolean> {
 
       const verifiedCertificate = await this.certificateService.verify(verificationRequest);
 
