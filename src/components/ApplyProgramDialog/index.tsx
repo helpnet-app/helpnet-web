@@ -16,13 +16,18 @@ import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
+import { AppliedPrograms } from "../../pages/HomePage/VolunteerHomePage/tabs/AppliedPrograms";
+import ApplyToProgramUC from "../../use_cases/Programs/ApplyToProgramUC";
+import ProgramService from "../../services/ProgramService";
 
 interface FormResponse {
   personalDescription: string;
-  xp: string;
+  experience: string;
   freeWeekdays: string[] | string;
   freeTimes: string[] | string;
 }
+
+const applyToProgram = new ApplyToProgramUC(new ProgramService())
 
 export const ApplyProgramDialog: React.FC<Props> = ({
   program,
@@ -33,23 +38,23 @@ export const ApplyProgramDialog: React.FC<Props> = ({
   const { pushNotification } = useNotification();
   const { formRef, handleSubmit } = useForm(handleApplying);
 
-  function handleApplying(data: FormResponse) {
+  async function handleApplying(data: FormResponse) {
+    const {freeTimes, freeWeekdays, ...rest} = data;
     const parsedData = {
-      ...data,
-      freeWeekdays:
-        data.freeWeekdays instanceof Array
-          ? data.freeWeekdays
-          : [data.freeWeekdays],
-      freeTimes:
-        data.freeTimes instanceof Array ? data.freeTimes : [data.freeTimes],
+      ...rest,
+      schedule: {
+        days:
+          data.freeWeekdays instanceof Array
+            ? data.freeWeekdays
+            : [data.freeWeekdays],
+        period:
+          data.freeTimes instanceof Array ? data.freeTimes : [data.freeTimes]
+      }
     };
 
-    // TODO: create a service to apply for a program
-    console.log(parsedData); // REMOVE
-    const isApplied = false;
-    // ============================================
+    const appliedProgram = await applyToProgram.execute(program.id, volunteer._id, parsedData)
 
-    if (isApplied) {
+    if (appliedProgram) {
       pushNotification(
         {
           message: "Formulário enviado com sucesso. Boa sorte!",
@@ -138,7 +143,7 @@ export const ApplyProgramDialog: React.FC<Props> = ({
               vivenciar) aplicando para esta vaga.
             </label>
             <textarea
-              name="xp"
+              name="experience"
               className="textarea"
               placeholder="Digite aqui"
             ></textarea>

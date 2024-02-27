@@ -4,6 +4,10 @@ import { Org } from "../../../../../entities/Org";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import "./styles.css";
+import OrgService from "../../../../../services/OrgService";
+import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
+
+const findById = new FindOrgById(new OrgService())
 
 export const CreateProgram: React.FC = () => {
   // Authenticated Org
@@ -11,26 +15,13 @@ export const CreateProgram: React.FC = () => {
 
   useEffect(() => {
     async function fetch() {
-      // TODO: create a service to get the authenticated user (role = 'org')
-      const org: Org = {
-        cep: "TESTE",
-        city: "TESTE",
-        cnpj: "TESTE",
-        country: "TESTE",
-        district: "TESTE",
-        email: "TESTE",
-        name: "Org de Exemplo",
-        password: "TESTE",
-        phone: "TESTE",
-        state: "TESTE",
-        username: "TESTE",
-        whatsapp: "TESTE",
-        tradeName: "TESTE",
-        houseNumber: "TESTE",
-        createdAt: new Date(),
-        _id: "001",
-      };
-      setAuthenticatedOrg(org);
+      const id_org = localStorage.getItem("id_org");
+
+      if(id_org) {
+
+        const org = await findById.execute(id_org);
+        if(org) setAuthenticatedOrg(org);
+      }
     }
 
     fetch();
