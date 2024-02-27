@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
 interface Props {
-  onClick: () => void;
+  onClick?: () => void;
   selected?: boolean;
   children: ReactNode | ReactNode[];
 }
@@ -9,7 +9,7 @@ interface Props {
 export const SidebarItem: React.FC<Props> = ({
   children,
   selected,
-  onClick,
+  onClick = () => {},
 }) => {
   return (
     <li

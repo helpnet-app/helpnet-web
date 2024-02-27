@@ -1,9 +1,9 @@
-[] Fazer login
-[] Fazer Cadastro
-[] Tela de validação de QRCode
-[] Tela inicial
-[] Detalhes de Programas (voluntário)
-[] Aplicar programa
+[X] Fazer login
+[X] Fazer Cadastro
+[X] Tela inicial
+[X] Adicionar programa (organização)
 [] Detalhes de Programas (organização)
 [] Avaliar candidatos
-[] Adicionar programa (organização)
+[] Detalhes de Programas (voluntário)
+[] Aplicar programa
+[] Tela de validação de QRCode

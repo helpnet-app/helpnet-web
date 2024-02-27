@@ -5,48 +5,34 @@ import { Org } from "../../../../../entities/Org";
 import { Program } from "../../../../../entities/Program";
 
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
-import { ModeEnum } from "../../../../../entities/enum/mode_enum";
-import { ProgramStatusEnum } from "../../../../../entities/enum/program_status_enum";
+import { ProgramDialog } from "../../../../../components/ProgramDialog";
+import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import ProgramService from "../../../../../services/ProgramService";
 import { FetchAll } from "../../../../../use_cases/Programs/FetchAllUC";
 import "./styles.css";
 
-const fetchAllPrograms = new FetchAll(new ProgramService())
-
+const fetchAllPrograms = new FetchAll(new ProgramService());
 
 export const ProgramList: React.FC = () => {
+  const { dialogRef, openDialog, closeDialog } = useDialog();
   const { handleChange } = useInputDelay(handleFilter);
   // List of programs
   const [programs, setPrograms] = useState<Program[]>();
   const [programs2Show, setPrograms2Show] = useState<Program[]>();
+
+  // Selected programs
+  const [selectedPrograms, setSelectedPrograms] = useState<Program>();
 
   // Authenticated Org
   const [authenticatedOrg, setAuthenticatedOrg] = useState<Org>();
 
   useEffect(() => {
     async function fetch() {
-      // TODO: create a service to fetch all programs
       fetchAllPrograms.execute().then((data) => {
         setPrograms(data);
         setPrograms2Show(data);
-      })
-
-      // const newPrograms: Program[] = [
-      //   {
-      //     id: "01",
-      //     title: "Título de um programa",
-      //     mode: ModeEnum.ONLINE,
-      //     duration: 1,
-      //     description:
-      //       "Exemplo de descrição muuuuuuuuuuuuuuito longa demais demais demais demais demais demais demais demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  demais  ",
-      //     type: "",
-      //     nSpots: 190,
-      //     tags: ["Ciência e Tecnologia", "Social"],
-      //     status: ProgramStatusEnum.ON_GOING,
-      //     createdAt: new Date(),
-      //   },
-      // ];
+      });
 
       // TODO: create a service to get the authenticated user (role = 'org')
       const org: Org = {
@@ -67,9 +53,6 @@ export const ProgramList: React.FC = () => {
         createdAt: new Date(),
         _id: "001",
       };
-
-      // setPrograms(newPrograms);
-      // setPrograms2Show(newPrograms);
       setAuthenticatedOrg(org);
     }
 
@@ -89,8 +72,16 @@ export const ProgramList: React.FC = () => {
 
   function renderProgram(program: Program, index: number) {
     if (!authenticatedOrg) return;
+
     return (
-      <li key={`program-card-${index}`} className="program">
+      <li
+        key={`program-card-${index}`}
+        className="program"
+        onClick={() => {
+          openDialog();
+          setSelectedPrograms(program);
+        }}
+      >
         <ProgramCard org={authenticatedOrg} program={program} />
       </li>
     );
@@ -144,6 +135,16 @@ export const ProgramList: React.FC = () => {
           programs2Show.map(renderProgram)
         )}
       </ul>
+
+      <dialog ref={dialogRef} className="dialog">
+        {selectedPrograms && (
+          <ProgramDialog
+            close={closeDialog}
+            program={selectedPrograms}
+            org={authenticatedOrg}
+          />
+        )}
+      </dialog>
     </div>
   );
 };

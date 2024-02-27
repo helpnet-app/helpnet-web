@@ -10,3 +10,13 @@
   --current-theme: var(--primary);
   --current-theme-hover: var(--primary-v2);
 }
+
+.theme.volunteer {
+  --current-theme: var(--primary);
+  --current-theme-hover: var(--primary-v2);
+}
+
+.theme.org {
+  --current-theme: var(--secondary);
+  --current-theme-hover: var(--secondary-v2);
+}

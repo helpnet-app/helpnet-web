@@ -1,23 +1,11 @@
 import { SyntheticEvent } from "react";
 import DefaultImg from "../../assets/default.svg";
 import { Org } from "../../entities/Org";
-import { ModeEnum } from "../../entities/enum/mode_enum";
-import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
 import { Program } from "../../entities/Program";
+import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
 import { Tag } from "../Tag";
+import { MODE_TEXT, STATUS_TEXT } from "./strings";
 import "./styles.css";
-
-const STATUS_TEXT = {
-  [ProgramStatusEnum.CREATED]: "Não Iniciado",
-  [ProgramStatusEnum.FINISHED]: "Finalizado",
-  [ProgramStatusEnum.ON_GOING]: "Em Andamento",
-};
-
-const MODE_TEXT = {
-  [ModeEnum.HYBRID]: "Híbrido",
-  [ModeEnum.ONLINE]: "Online",
-  [ModeEnum.IN_PERSON]: "Presencial",
-};
 
 interface Props {
   program: Program;
@@ -78,7 +66,7 @@ export const ProgramCard: React.FC<Props> = ({
       <p className="font-text">{shortFormOfDescription}</p>
 
       <div className="blur">
-        <label className="font-label">Ver Mais</label>
+        <label className="font-label">Clique para ver mais</label>
       </div>
     </article>
   );
