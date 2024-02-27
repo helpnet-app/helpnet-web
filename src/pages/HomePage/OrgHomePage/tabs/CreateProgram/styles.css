@@ -49,6 +49,12 @@
   align-items: center;
 }
 
+.create-program-tab .tags {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
 .create-program-tab .tag {
   cursor: pointer;
 }

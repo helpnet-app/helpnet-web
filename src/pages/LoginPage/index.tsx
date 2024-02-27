@@ -22,16 +22,15 @@ export const LoginPage: React.FC = () => {
     );
 
     if (isAuthenticated) {
-      sessionStorage.setItem("login_token", isAuthenticated.access_token)
+      sessionStorage.setItem("login_token", isAuthenticated.access_token);
 
       if (isAuthenticated.role == "organization") {
-        localStorage.setItem("id_org", isAuthenticated.id)
+        localStorage.setItem("id_org", isAuthenticated.id);
         return navigation("/homepage/org");
       } else if (isAuthenticated.role == "volunteer") {
-        localStorage.setItem("id_vol", isAuthenticated.id)
+        localStorage.setItem("id_vol", isAuthenticated.id);
         return navigation("/homepage/volunteer");
       }
-      
     }
 
     pushNotification(

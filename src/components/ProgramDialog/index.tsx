@@ -13,11 +13,14 @@ interface Props {
 }
 
 import DefaultImg from "../../assets/default.svg";
+import { Application } from "../../entities/Application";
 import { Org } from "../../entities/Org";
 import { User } from "../../entities/User";
 import { ProgramStatusEnum } from "../../entities/enum/program_status_enum";
+import { useDialog } from "../../hooks/useDialog";
 import { useInputDelay } from "../../hooks/useInputDelay";
 import { useNotification } from "../../hooks/useNotification";
+import { AnalyzeApplyingDialog } from "../AnalyzeApplyingDialog";
 import { LoadingSpinner } from "../LoadingSpinner";
 import { MODE_TEXT } from "../ProgramCard/strings";
 import { Tag } from "../Tag";
@@ -31,6 +34,7 @@ const startProgram = new StartProgramUC(new ProgramService())
 const finishProgram = new FinishProgramUC(new ProgramService())
 
 export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
+  const { dialogRef, openDialog, closeDialog } = useDialog();
   const { pushNotification } = useNotification();
   // Filtering users
   const { handleChange } = useInputDelay(handleFilterUsers);
@@ -42,6 +46,8 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
 
   // Approved Candidates
   const [approvedUsers, setApprovedUsers] = useState<User[]>();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentApplication, setCurrentApplication] = useState<Application>();
 
   useEffect(() => {
     async function fetch() {
@@ -78,9 +84,13 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
     fetch();
   }, []);
 
-  async function handleInitProgram() {
-    
-    const startedProgram = await startProgram.execute(program.id);
+  function handleNext() {}
+  function handleLast() {}
+
+  function handleInitProgram() {
+    // TODO: create service to init a program
+    const wasUpdated = false;
+    // =========================================
 
     if (startedProgram) {
       pushNotification(
@@ -366,6 +376,20 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
           )}
         </div>
       </div>
+
+      <dialog className="dialog" ref={dialogRef}>
+        {currentApplication && currentApplication.volunteer && (
+          <AnalyzeApplyingDialog
+            org={org}
+            program={program}
+            volunteer={currentApplication?.volunteer}
+            application={currentApplication}
+            next={handleNext}
+            last={handleLast}
+            close={closeDialog}
+          />
+        )}
+      </dialog>
     </article>
   );
 };

@@ -6,18 +6,16 @@ import { Program } from "../../../../../entities/Program";
 import { LoadingSpinner } from "../../../../../components/LoadingSpinner";
 import { ProgramDialogVolunteer } from "../../../../../components/ProgramDialogVolunteer";
 import { Volunteer } from "../../../../../entities/Volunteer";
-import { ModeEnum } from "../../../../../entities/enum/mode_enum";
-import { ProgramStatusEnum } from "../../../../../entities/enum/program_status_enum";
 import { useDialog } from "../../../../../hooks/useDialog";
 import { useInputDelay } from "../../../../../hooks/useInputDelay";
-import "./styles.css";
-import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllByVolIdUC";
 import ProgramService from "../../../../../services/ProgramService";
-import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
 import VolunteerService from "../../../../../services/VolunteerService";
+import { FetchAllByVolId } from "../../../../../use_cases/Programs/FetchAllByVolIdUC";
+import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
+import "./styles.css";
 
-const fetchAllByVol = new FetchAllByVolId(new ProgramService())
-const findById = new FindVolById(new VolunteerService())
+const fetchAllByVol = new FetchAllByVolId(new ProgramService());
+const findById = new FindVolById(new VolunteerService());
 
 export const AppliedPrograms: React.FC = () => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -33,25 +31,23 @@ export const AppliedPrograms: React.FC = () => {
   const [authenticatedVolunteer, setAuthenticatedVolunteer] =
     useState<Volunteer>();
 
-    useEffect(() => {
-      async function fetch() {
-        const id_vol = localStorage.getItem("id_vol");
-  
-        if(id_vol) {
-  
-          const org = await findById.execute(id_vol);
-          if(org) setAuthenticatedVolunteer(org);
-  
-          fetchAllByVol.execute(id_vol).then((data) => {
-            setPrograms(data);
-            setPrograms2Show(data);
-          });
-        }
-      
+  useEffect(() => {
+    async function fetch() {
+      const id_vol = localStorage.getItem("id_vol");
+      if (id_vol) {
+        const org = await findById.execute(id_vol);
+        if (org) setAuthenticatedVolunteer(org);
+
+        fetchAllByVol.execute(id_vol).then((data) => {
+          console.log(data);
+          setPrograms(data);
+          setPrograms2Show(data);
+        });
       }
-  
-      fetch();
-    }, []);
+    }
+
+    fetch();
+  }, []);
 
   function handleFilter(value: string) {
     if (value === "") return setPrograms2Show(programs);
@@ -65,12 +61,7 @@ export const AppliedPrograms: React.FC = () => {
   //   ================= RENDERING =================
 
   function renderProgram(program: Program, index: number) {
-    if (
-      !authenticatedVolunteer ||
-      program.status !== ProgramStatusEnum.CREATED ||
-      !program.organization
-    )
-      return;
+    if (!authenticatedVolunteer || !program.organization) return;
 
     return (
       <li
