@@ -1,5 +1,5 @@
 import { ProgramToCreateDto } from "../dtos/program/ProgramToCreateDto";
-import { Questions } from "../entities/Application";
+import { Application, Questions } from "../entities/Application";
 import { Program } from "../entities/Program";
 import { Volunteer } from "../entities/Volunteer";
 
@@ -44,7 +44,18 @@ export default class ProgramService {
         return responseJSON;
     }
 
-    async fetchAllByVolId(id_vol: string): Promise<Program[]> {
+    async fetchAllProgramsByVolId(id_vol: string): Promise<Program[]> {
+        const response = await fetch(
+        `https://helpnet-api-1.onrender.com/programs/applied/${id_vol}`
+        );
+
+        const responseJSON = await response.json();
+        const responseStatus = response.status;
+        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        return responseJSON;
+    }
+
+    async fetchAllAplicationsByVolId(id_vol: string): Promise<Application[]> {
         const response = await fetch(
         `https://helpnet-api-1.onrender.com/programs/applied/${id_vol}`
         );

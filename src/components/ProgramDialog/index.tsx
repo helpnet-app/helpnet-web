@@ -28,10 +28,12 @@ import { FetchAllApplicationsByProgram } from "../../use_cases/Programs/FetchAll
 import ProgramService from "../../services/ProgramService";
 import StartProgramUC from "../../use_cases/Programs/StartProgramUC";
 import FinishProgramUC from "../../use_cases/Programs/FinishProgramUC";
+import DeleteProgramUC from "../../use_cases/Programs/DeleteProgramUC";
 
 const fetchAllApplicationsByProgram = new FetchAllApplicationsByProgram(new ProgramService())
 const startProgram = new StartProgramUC(new ProgramService())
 const finishProgram = new FinishProgramUC(new ProgramService())
+const deleteProgram = new DeleteProgramUC(new ProgramService())
 
 export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -87,10 +89,9 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   function handleNext() {}
   function handleLast() {}
 
-  function handleInitProgram() {
-    // TODO: create service to init a program
-    const wasUpdated = false;
-    // =========================================
+  async function handleInitProgram() {
+
+    const startedProgram = await startProgram.execute(program._id);
 
     if (startedProgram) {
       pushNotification(
@@ -114,11 +115,10 @@ export const ProgramDialog: React.FC<Props> = ({ program, org, close }) => {
   }
 
   async function handleDeleteProgram() {
-    // TODO: create service to delete a program
-    const wasUpdated = false;
-    // =========================================
 
-    if (wasUpdated) {
+    const deletedProgram = await deleteProgram.execute(program._id);
+
+    if (deletedProgram) {
       pushNotification(
         {
           message: "Programa deletado com sucesso.",
