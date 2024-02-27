@@ -10,7 +10,7 @@ export default class GenerateUC {
       this.certificateService = certificateService
    }
 
-   async execute(id_prog: string, id_vol:string): Promise<Certificate> {
+   async execute(id_prog: string, id_vol:string): Promise<Uint8Array> {
 
       const generatedCertificate = await this.certificateService.generateCertificate(id_prog, id_vol);
 
