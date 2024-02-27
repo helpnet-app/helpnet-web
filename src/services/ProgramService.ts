@@ -87,7 +87,7 @@ export default class ProgramService {
     return responseJSON;
   }
 
-  async fetchAllApplicationsByProgram(id_prog: string): Promise<Application[]> {
+  async fetchAllApplicationsByProgram(id_prog: string): Promise<Volunteer[]> {
     const response = await fetch(
       `https://helpnet-api-1.onrender.com/programs/${id_prog}/applications`
     );
@@ -137,6 +137,40 @@ export default class ProgramService {
       `https://helpnet-api-1.onrender.com/programs/${id_prog}`,
       {
         method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseJSON = await response.json();
+    const responseStatus = response.status;
+    if (responseStatus !== 200) throw new Error(responseJSON.message);
+    return responseJSON;
+  }
+
+  async aprooveApplication(id_application: string): Promise<Program> {
+    const response = await fetch(
+      `https://helpnet-api-1.onrender.com/programs/application/${id_application}/approves'`,
+      {
+        method: "PATCH",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseJSON = await response.json();
+    const responseStatus = response.status;
+    if (responseStatus !== 200) throw new Error(responseJSON.message);
+    return responseJSON;
+  }
+
+  async rejectApplication(id_application: string): Promise<Program> {
+    const response = await fetch(
+      `https://helpnet-api-1.onrender.com/programs/application/${id_application}/reject`,
+      {
+        method: "PATCH",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
