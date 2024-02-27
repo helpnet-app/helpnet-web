@@ -7,16 +7,25 @@ import { Tag } from "../../../../../components/Tag";
 import { ModeEnum } from "../../../../../entities/enum/mode_enum";
 import { useForm } from "../../../../../hooks/useForm";
 import { useNotification } from "../../../../../hooks/useNotification";
+import CreateProgramUC from "../../../../../use_cases/Programs/CreateUC";
+import ProgramService from "../../../../../services/ProgramService";
 import "./styles.css";
+import { PiArrowSquareRight } from "react-icons/pi";
+import { Program } from "../../../../../entities/Program";
+import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
+import OrgService from "../../../../../services/OrgService";
 
 interface FormResponse {
+  title: string; 
+  mode: "1" | "2" | "3";
   ch: string;
   description: string;
   file: File;
-  mode: "1" | "2" | "3";
   nSpot: string;
-  title: string;
 }
+
+const createProgram = new CreateProgramUC(new ProgramService())
+const findById = new FindOrgById(new OrgService())
 
 export const CreateProgram: React.FC = () => {
   const { formRef, handleSubmit } = useForm(onSubmit);
@@ -31,44 +40,31 @@ export const CreateProgram: React.FC = () => {
 
   useEffect(() => {
     async function fetch() {
-      // TODO: create a service to get the authenticated user (role = 'org')
-      const org: Org = {
-        cep: "TESTE",
-        city: "TESTE",
-        cnpj: "TESTE",
-        country: "TESTE",
-        district: "TESTE",
-        email: "TESTE",
-        name: "Org de Exemplo",
-        password: "TESTE",
-        phone: "TESTE",
-        state: "TESTE",
-        username: "TESTE",
-        whatsapp: "TESTE",
-        tradeName: "TESTE",
-        houseNumber: "TESTE",
-        createdAt: new Date(),
-        _id: "001",
-      };
-      setAuthenticatedOrg(org);
+      const id_org = localStorage.getItem("id_org");
+      if(id_org) {
+        const org = await findById.execute(id_org);
+        if(org) setAuthenticatedOrg(org);
+      }
     }
-
     fetch();
   }, []);
 
-  function onSubmit(data: FormResponse) {
+  async function onSubmit(data: FormResponse) {
+    const {file, ...rest} = data;
     const parsedData = {
-      ...data,
+      ...rest,
       mode: parseInt(data.mode) as ModeEnum,
-      nSpot: parseInt(data.nSpot),
-      ch: parseInt(data.ch),
+      nSpots: parseInt(data.nSpot),
+      duration: parseInt(data.ch),
+      tags
     };
+    let createdProgram: Program|undefined = undefined;
 
-    // TODO: create a service to create a new program
-    const wasCreated = true;
-    // ==============================================
+    if(authenticatedOrg){
+      createdProgram = await createProgram.execute(parsedData, authenticatedOrg._id)
+    }
 
-    if (wasCreated) {
+    if (createdProgram) {
       pushNotification(
         {
           message: "Criação de novo programa realiza com sucesso.",

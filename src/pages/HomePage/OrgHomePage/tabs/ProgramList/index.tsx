@@ -11,8 +11,13 @@ import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import ProgramService from "../../../../../services/ProgramService";
 import { FetchAll } from "../../../../../use_cases/Programs/FetchAllUC";
 import "./styles.css";
+import OrgService from "../../../../../services/OrgService";
+import { FindOrgById } from "../../../../../use_cases/Org/FindByIdUC";
+import { FetchAllByOrgId } from "../../../../../use_cases/Programs/FetchAllByOrgIdUC";
 
-const fetchAllPrograms = new FetchAll(new ProgramService());
+// const fetchAllPrograms = new FetchAll(new ProgramService());
+const fetchAllByOrgId= new FetchAllByOrgId(new ProgramService())
+const findById = new FindOrgById(new OrgService())
 
 export const ProgramList: React.FC = () => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -29,31 +34,19 @@ export const ProgramList: React.FC = () => {
 
   useEffect(() => {
     async function fetch() {
-      fetchAllPrograms.execute().then((data) => {
-        setPrograms(data);
-        setPrograms2Show(data);
-      });
+      const id_org = localStorage.getItem("id_org");
 
-      // TODO: create a service to get the authenticated user (role = 'org')
-      const org: Org = {
-        cep: "TESTE",
-        city: "TESTE",
-        cnpj: "TESTE",
-        country: "TESTE",
-        district: "TESTE",
-        email: "TESTE",
-        name: "Org de Exemplo",
-        password: "TESTE",
-        phone: "TESTE",
-        state: "TESTE",
-        username: "TESTE",
-        whatsapp: "TESTE",
-        tradeName: "TESTE",
-        houseNumber: "TESTE",
-        createdAt: new Date(),
-        _id: "001",
-      };
-      setAuthenticatedOrg(org);
+      if(id_org) {
+
+        const org = await findById.execute(id_org);
+        if(org) setAuthenticatedOrg(org);
+
+        fetchAllByOrgId.execute(id_org).then((data) => {
+          setPrograms(data);
+          setPrograms2Show(data);
+        });
+      }
+    
     }
 
     fetch();

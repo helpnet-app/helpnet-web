@@ -1,16 +1,17 @@
+import { Auth } from "../entities/Auth";
 
 export default class AuthService {
 
-    async login(email: string, password: string): Promise<Object> {
+    async login(username: string, password: string): Promise<Auth> {
         
-        const response = await fetch(`https://helpnet-api-1.onrender.com/auth/login`, {
+        const response = await fetch(`https://helpnet-api-1.onrender.com/login`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: email,
+                username: username,
                 password: password,
             })
         })

@@ -1,5 +1,6 @@
 import { Program } from "./Program";
 import { Volunteer } from "./Volunteer";
+import { ApplicationStatusEnum } from "./enum/application_status_enum";
 
 interface Schedule {
   days: string[];
@@ -18,4 +19,10 @@ export interface Application {
   questions: Questions;
   volunteer?: Volunteer;
   program?: Program;
+  status: ApplicationStatusEnum;
+}
+
+export interface VolunteerApplication {
+  application: Application;
+  volunteers: Volunteer[];
 }
