@@ -25,7 +25,7 @@ export const LoginPage: React.FC = () => {
         return navigation("/homepage/org");
       } else if (isAuthenticated.role == "volunteer") {
         localStorage.setItem("id_vol", isAuthenticated.id)
-        return navigation("/homepage/vol");
+        return navigation("/homepage/volunteer");
       }
       
     }

@@ -12,8 +12,11 @@ import { useInputDelay } from "../../../../../hooks/useInputDelay";
 import ProgramService from "../../../../../services/ProgramService";
 import { FetchAll } from "../../../../../use_cases/Programs/FetchAllUC";
 import "./styles.css";
+import { FindVolById } from "../../../../../use_cases/Volunteer/FindByIdUC";
+import VolunteerService from "../../../../../services/VolunteerService";
 
 const fetchAllPrograms = new FetchAll(new ProgramService());
+const findById = new FindVolById(new VolunteerService())
 
 export const ProgramList: React.FC = () => {
   const { dialogRef, openDialog, closeDialog } = useDialog();
@@ -31,33 +34,19 @@ export const ProgramList: React.FC = () => {
 
   useEffect(() => {
     async function fetch() {
-      fetchAllPrograms.execute().then((data) => {
-        setPrograms(data);
-        setPrograms2Show(data);
-      });
+      const id_vol = localStorage.getItem("id_vol");
 
-      // TODO: create a service to get the authenticated user (role = 'volunteer')
-      const volunteer: Volunteer = {
-        cep: "TESTE",
-        city: "TESTE",
-        country: "TESTE",
-        district: "TESTE",
-        email: "TESTE",
-        name: "Org de Exemplo",
-        password: "TESTE",
-        phone: "TESTE",
-        state: "TESTE",
-        username: "TESTE",
-        whatsapp: "TESTE",
-        houseNumber: "TESTE",
-        createdAt: new Date(),
-        _id: "001",
-        birthday: "12-01-2003",
-        confirmPassword: "000000",
-        cpf: "000.000.000-00",
-        rg: "000000-0",
-      };
-      setAuthenticatedVolunteer(volunteer);
+
+      if(id_vol) {
+        const org = await findById.execute(id_vol);
+        if(org) setAuthenticatedVolunteer(org);
+
+        fetchAllPrograms.execute().then((data) => {
+          setPrograms(data);
+          setPrograms2Show(data);
+        });
+
+      }
     }
 
     fetch();

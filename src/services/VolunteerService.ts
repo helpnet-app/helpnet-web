@@ -22,4 +22,14 @@ export default class VolunteerService {
         return responseJSON;
     }
 
+    async findById(id_vol: string): Promise<Volunteer> {
+        const response = await fetch(
+            `https://helpnet-api-1.onrender.com/volunteers/${id_vol}`
+        );
+        const responseJSON = await response.json();
+        const responseStatus = response.status;
+        if (responseStatus !== 200) throw new Error(responseJSON.message);
+        return responseJSON;
+    }
+
 }
