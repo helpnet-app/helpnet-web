@@ -2,9 +2,11 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoImg from "../../assets/logo.svg";
 import { useForm } from "../../hooks/useForm";
 import { useNotification } from "../../hooks/useNotification";
-import "./styles.css";
-import Login from "../../use_cases/LoginUC";
 import AuthService from "../../services/AuthService";
+import Login from "../../use_cases/LoginUC";
+import "./styles.css";
+
+import QRCodeImg from "../../assets/qrcode.svg?react";
 
 const loginUser = new Login(new AuthService());
 
@@ -14,8 +16,10 @@ export const LoginPage: React.FC = () => {
   const { pushNotification } = useNotification();
 
   async function onSubmit(data: { username: string; password: string }) {
-
-    const isAuthenticated = await loginUser.execute(data.username, data.password)
+    const isAuthenticated = await loginUser.execute(
+      data.username,
+      data.password
+    );
 
     if (isAuthenticated) return navigation("/homepage/org");
     pushNotification(
@@ -29,6 +33,10 @@ export const LoginPage: React.FC = () => {
 
   return (
     <div className="login-page">
+      <button onClick={() => navigation("/validation")} className="validate">
+        <QRCodeImg />
+        <label className="font-label">Validar Certificado</label>
+      </button>
       <img src={LogoImg} alt="HelpNet" className="logo" />
       <form ref={formRef} onSubmit={handleSubmit} className="form">
         <main className="main">
